@@ -2,3 +2,346 @@
 原谅我这一生不羁放纵爱自由
 一趴天会跌倒
 my baby is liyanghong
+0. 作业
+   1.申请并[激活]一个Github帐号  
+   2.在window中安装Git
+     版本要求：Git-2.22.0-64-bit.exe或以上版本，
+     安装路径：请不要安装在C盘(win10会有权限问题)，建议选择“E:\tools\Git”
+
+1. Git是什么
+   Git是一个开源的[分布式][版本控制系统]，用于敏捷高效地处理任何或小或大的项目
+
+   版本控制器
+   CVS/SVN/Git
+   git/getee(码云)
+
+   SVN
+   客户端/服务器 
+  
+   GIT
+   客户端/代码托管网站(例如：github)
+
+   注1：类似的代码托管网站还有：github/码云/阿里云Code源码管理
+   注2：类似的技术GitLab，但它与GitHub又有一定的区别
+   GitLab和GitHub一样属于第三方基于Git开发的作品，免费且开源。与Github类似，可以注册用户，任意提交你的代码，添加SSHKey等等。
+   不同的是，GitLab是可以部署到自己的服务器上，数据库等一切信息都掌握在自己手上，适合团队内部协作开发，
+   你总不可能把团队内部的智慧总放在别人的服务器上吧？简单来说可把GitLab看作个人版的GitHub。
+
+
+2. Git与SVN区别(重点记录1/2/3点)
+  2.1 去中心化
+      GIT是分布式的，SVN不是：这是GIT和其它非分布式的版本控制系统，例如SVN，CVS等，最核心的区别。     
+  2.2 git仓库的任何一个拷贝都可以独立作为一个服务器来使用
+  2.3 在Git中文件有四种状态：
+      未跟踪(untrack)：表示文件为新增加的
+      已修改(modified)：表示修改了文件，但还没保存到git仓库中。
+      已暂存(staged)：表示对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中
+      已提交(committed)：表示文件已保存在git仓库中。
+  2.4 其它
+      GIT没有一个全局的版本号，而SVN有：目前为止这是跟SVN相比GIT缺少的最大的一个特征。
+      GIT的内容完整性要优于SVN：GIT的内容存储使用的是SHA-1哈希算法。这能确保代码内容的完整性，确保在遇到磁盘故障和网络问题时降低对版本库的破坏
+  2.5 直接记录快照，而非差异
+      GIT把内容按元数据方式存储，而SVN是按文件：所有的资源控制系统都是把文件的元信息隐藏在一个类似.svn,.cvs等的文件夹里。
+      直接记录快照，而非差异
+  2.6 直接记录快照，而非差异
+      GIT分支和SVN的分支不同，分支在SVN中一点不特别，就是版本库中的另外的一个目录。
+
+
+3. 实践操作：github网站相关操作
+   1.创建仓库(私库和公库)
+    
+     注1：仓库对应url支持多种协议，最常用的有两种：https/ssh
+     注2：github上repository分为public和private
+          顾名思义public可以被其他人看到并clone；而private是不能被别人看到的，但是可以被clone，由于是private的，要克隆当然是需要一些强前提条件的，
+          不然安全性无法保证，private也就失去了意义。这里把repository创建为private的场景为：自己创建一个私人项目，但是又需要和其他developer一起开发，
+          所以，需要developer都能克隆这个private repository，并且都能提交到这个private repository。         
+          私有库貌似要收钱钱的，不过这已经是历史了
+         			
+          微软 Github 收购事件于昨天（2018年06月04日）尘埃落定，微软最终以 75 亿美元正式收购 Github。
+          更有网友称这是一桩最滑稽的收购案，世界上最大的闭源公司收购了世界上最大的开源公司。
+          新年2019年1月，新的 Github, Github 宣布了两个重大更新
+          即现在可以无限制的免费使用 Github 私有仓库，让开发人员更好的使用 GitHub，不过最多只有 3 个免费协作成员。
+   2.删除仓库
+   3.创建文件及文件夹
+     如何在github上创建文件夹，两种方式：一种DOC命令(后面讲)/一种网站直接创建
+     网站创建文件夹
+     1.登陆github个人仓库，点击Create new file
+     2.输入文件夹名称后加个“/”
+     3.在文件名后面加上"/"这个斜杠回车再输入一个文件名，在里面随便写点东西（因为Github不允许空文件夹存在，
+       空文件夹自动删除），提交接即可。 
+   ## 以下操作自学
+   4.修改昵称
+   5.修改帐号
+   6.修改密码
+
+
+4. 实践操作：Git配置帐号和邮箱(本机)
+   一般刚安装Git都要配置用户名和密码，因为你提交代码到本地仓库（上传代码到远程仓库）时会用到，
+   如果没有没有配置，在你提交时它会提醒你的。但是，如果仅仅克隆(即下载)公有项目，你甚至不需要注册——刚刚我们创建的账户是为了以后
+   fork 其它项目，以及推送我们自己的修改。
+
+   ## 命令行配置
+   0.“Git bash here”打开命令窗口
+   1.查看git的配置列表
+     git config --list
+     注1：如果没有配置东西，应该是空的。照着下面步骤配置完成后，你可以再试一下该命令，就会出现一系列配置信息
+   2.设置用户名/邮箱/密码
+     git config --global user.name "username"
+     git config --global user.email "email"
+     git config --global user.password "password"
+ 
+     注1：全局变量
+           --global  表示全局的，即当前用户都有效，该配置会出现在 ~/.gitconfig 文件中，~表示当前用户的目录，
+          比如我的是：C:\Users\Administrator\.gitconfig，打开该文件你会发现如下图所示的内容： 
+           [user]
+	   name = xxx
+	   email = xxx@qq.com
+     注2：局部变量
+          git config user.name  "username"  
+          git config user.email  "email"
+          局部是只对当前仓库起效的，它的配置信息会在当前仓库根目录/.git/config文件下
+          注意：局部变量覆盖全局变量！！！和编程语言里面的变量关系是一样的。
+     注3：删除某个全局配置项
+          git config --global --unset user.name
+
+
+5. git文件状态与工作区域(重点)
+   git的文件状态是其git核心内容，了解后对后续的操作有莫大的帮助，不同的文件状态又存储在不同的工作区域中。
+   1.文件状态  
+     git中的文件有以下几种状态
+     未跟踪(untrack)：表示文件为新增加的
+     已暂存(staged)：表示对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中
+     已提交(committed)：表示文件已保存在git仓库中。
+     已修改(modified)：表示修改了文件，但还没保存到git仓库中。
+   2.工作区域
+     按照本地计算机与远程计算机划分，工作区域有以下几种
+     1)本地计算机
+     Working Directory（工作目录）：即正在编辑的文件状态。文件状态为未跟踪（untrack）和已修改（modified）在此区域内。
+     Staging Area（暂存区）：保存了下次将提交的文件列表信息。文件状态为已暂存（staged）在此区域内。
+     Repository（本地仓库）：提交到本地仓库的文件。
+     2)远程计算机
+     Repository（远程仓库）：已提交到远程计算机内的文件。
+
+   注1：git文件状态与工作区域详情可参考：资料/Git文件状态与工作区域示意图.png(重点~~~重点~~~重点~~~)
+
+
+6. 常用命令(重点)
+   git clone ：将远程仓库clone到本地计算机。
+   git status ：展示工作区及暂存区域中不同状态的文件。
+   git add ：将内容从工作目录添加到暂存区。
+   git commit ：所有通过 git add 暂存的文件提交到本地仓库。
+   git push ：将本地仓库的记录提交到远程仓库。
+   git reset HEAD <file> ：从暂存区移除指定文件。
+   git checkout -- <file> ：从本地仓库恢复指定文件。
+   git pull ：拉取远程仓库的数据。
+   git init
+
+7. 实践操作：使用git提交文件至远程仓库(重点)
+   首先明确大致流程：
+   1.取得项目的 Git 仓库(有两种方式，本章先介绍第一种)
+     第一种是从github现有仓库(远程)克隆出新的仓库(本地)
+     第二种是在工作目录中初始化新的仓库(本地)，然后再与一个Github上的仓库(远程)关联
+   2.在本地的克隆库上进行你所需要的改动，修改文件内容，添加文件等；
+   3.add，commit，push三部曲。
+   
+   具体步骤：
+   1.取得项目的Git仓库(从github现有仓库克隆)
+     ## 此处url改为自己仓库的地址
+     git clone https://github.com/zhangsiyan2019/test1.git
+
+     注1：此命令，会在当前目录下创建一个名为test1的目录，其中包含一个 .git 的目录，用于保存下载下来的所有版本记录。
+          如果进入这个新建的 test1 目录，你会看到项目中的所有文件已经在里边了，准备好后续的开发和使用。
+     注2：克隆仓库的命令格式为 git clone [url]，Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快    
+          git clone git@github.com:fsliurujie/test.git          --SSH协议
+          git clone git://github.com/fsliurujie/test.git        --GIT协议
+          git clone https://github.com/fsliurujie/test.git      --HTTPS协议 
+          提问：那平时使用哪个协议最好呢？？？
+     注3：你熟悉其他的 VCS 比如 Subversion，你可能已经注意到这里使用的是 clone 而不是 checkout。这是个非常重要的差别，
+          Git 收取的是项目历史的所有数据（每一个文件的每一个版本），服务器上有的数据克隆之后本地也都有了。实际上，
+          即便服务器的磁盘发生故障，用任何一个克隆出来的客户端都可以重建服务器上的仓库，回到当初克隆时的状态 
+     注4：如果希望在克隆的时候，自己定义要新建的项目目录名称，可以在上面的命令末尾指定新的名字
+          git clone https://github.com/yanppp999/test1.git mytest1
+     注5：如何查看.git目录(默认为隐藏文件夹)
+          window菜单：“查看”->“选项”->选择，选项卡“查看”->勾中“显示隐藏的文件、文件夹和驱动器”
+
+   2.查看初始状态
+     git clone 一个仓库后，运行 git status
+     注1：另外一种查看git仓库状态的方式
+          进入test1目录，用ls -ah命令如果命令窜显示.git目录，就表示已经克隆成功，并且该目录已经是git可以管理的仓库了
+
+   3.添加一个文件
+     在此仓库中添加一个文件a.txt，运行 git status
+     注1：可以看到文件上方有个 "Untracked files"，表示这个文件“未跟踪”
+
+   4.新创建的文件添加到“暂存区”
+     执行 git add a.txt ，将会把新创建的a.txt提交到“暂存区”，执行后运行 git status
+     注1：文件上方有说明使用 git reset HEAD <file> 可从暂存区移除指定文件。
+
+   5.“暂存区”的内容提交到“本地仓库”
+     执行 git commit，将“暂存区”的内容提交到“本地仓库”，执行后运行 git status：
+
+     注1：如果没有配置帐号或密码，会出现以下提示
+          *** Please tell me who you are.
+     注2：git commit 时出现：please enter the commit message for your changes，
+          默认会启用 shell 的环境变量 $EDITOR 所指定的软件，一般都是 vim(没错啦，就是linux课程使用过滴) 或 emacs，
+
+          即询问你是否要添加“提交说明”
+          要输入“提交说明”的话就需要
+          1.按键盘字母 i 进入insert模式
+          2.修改最上面那行黄色合并信息,可以不修改
+          3.按键盘左上角"Esc"
+          4.输入":wq",注意是冒号+wq,按回车键即可
+
+          也可以使用 -m 参数后跟“提交说明”方式，在一行命令中提交更新。
+          git commit -m “提交说明”
+          另外，提交说明在团队合作中是非常重要的一点，要尽量写的简洁而语意清晰
+                   
+          演示：提交b.txt~~~~~~~
+          演示：提交b.txt~~~~~~~
+          演示：提交b.txt~~~~~~~
+     注3：此步骤执行完毕后，a.txt和b.txt还是在本机，并未推送到远程仓库(github)，可以打开hithub网站上的仓库查看一下
+
+     作业1：通过资料/Git文件状态与工作区域示意图.png，简单说明一下git commit和git commit -a的区别
+     作业2：通过资料/Git文件状态与工作区域示意图.png，简单说明一下git commit -m与git commit -am的区别
+ 
+   6.“本地仓库”的内容提交到“远程仓库”
+     执行 git push，将“本地仓库”的内容提交到“远程仓库”，执行后运行 git status
+     提示：可以看到提交后git状态又回到初始化状态。
+     
+   ## 取得项目的Git仓库第二种方式
+   1.取得项目的Git仓库(在工作目录中初始化新的仓库)
+     要对现有的某个项目开始用 Git 管理，只需到此项目所在的目录，例如：d:\temp\test3，执行：
+     git init
+   2.同上
+   3.同上
+   4.同上
+   5.同上
+   6.“本地仓库”的内容提交到“远程仓库”
+     执行 git push，将“本地仓库”的内容提交到“远程仓库”，会报出如下错误
+     fatal: No configured push destination.
+     Either specify the URL from the command-line or configure a remote repository using 
+     这是，因为本地仓库并未与任何一个远程仓库关联，所以第一次提交时必须提供远程仓库的URL，具体操作如下：
+
+           
+     ## 在github先建仓库test3，目前，在GitHub上的这个仓库还是空的，GitHub告诉我们，可以从这个仓库克隆出新的仓库，
+     ## 也可以把一个已有的本地仓库与之关联，然后，把本地仓库的内容推送到GitHub仓库。
+     1.打开浏览器，登陆github后，新建一个仓库test3(目前在GitHub上的这个仓库还是空的)，它的地址为：
+       https://github.com/yanppp999/test3.git
+
+       注1：在GitHub主页创建test3仓库，注意不要添加README.md等任何文件
+
+     2.将本地仓库的当前分支与远程仓库相关联 
+       git remote add origin https://github.com/yanppp999/test3.git
+
+       注1：语法：git remote add <name> <url>
+            远程库的名字就是origin，这是Git默认的叫法，也可以改成别的，但是origin这个名字一看就知道是远程库
+       注2：https://github.com/yanppp999/test3.git改成自己仓库对应的URL
+       注3：补充命令，如果url打错了，可以通过如下命令修改远程仓库关联
+            git remote set-url origin https://github.com/yanppp999/test3.git
+
+     3.将本地代码库的某一分支（eg:master）推送到远程的代码库
+       git push -u origin master
+       注1：把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程
+            由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，
+            还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+       注2：补充命令，查看git仓库的远程代码库的地址：git remote -v
+       注3：再次添加文件b.txt，依次add/commit/push操作，则与之前没有区别了  
+     
+
+
+8. 实践操作：使用git从远程仓库pull(拉)至本地仓库(重点)
+   git pull
+
+  git pull  [url]
+
+9. 实践操作：Git冲突与解决方法  
+   1.git冲突的场景(课程中主要演示情景三)
+     情景一：多个分支代码合并到一个分支时；
+     情景二：多个分支向同一个远端分支推送代码时；
+     情景三：同一分支，同一文件修改后的提交(即为多个程序员修改了同一个文件)
+     实际上，push操作和pull操作其实就分别是用本地分支合并到远程分支 和 将远程分支合并到本地分支，所以这两个过程中也可能存在冲突。
+  
+   分别在同一项目的两个不同本地仓库修改a.txt并提交，则会报出以下错误：
+   ! [rejected] master -> master (fetch first) error: failed to push some refs to ' 。。。'
+
+   拒绝
+   错误：无法推送某些引用 
+
+   解决方案：
+   1.将代码copy出来
+   2.先从远程仓库pull代码至本地，再修改冲突代码，       
+     注1：git status查看仓库状态，会显示红色的错误提示消息“ both modified:   a.txt”
+   3.打开a.txt，手动修改冲突部分的代码
+     <<<<<<< HEAD
+     ww add 18:42 from e:\temp\test1
+     =======
+
+     ls add 123 at 18:17 from d:\temp\test1
+     >>>>>>> 63c73e5933bb7d3d2bed04b06c37a74602d65b2e
+     注1：<<<<<<< HEAD  >>>>>>>之间的即为冲突的代码，手动修改即可
+      
+   3.依次add/commit/push代码至远程仓库
+     commit执行完生，重新查看仓库状态git status，红色的错误提示消息“ both modified:   a.txt”
+     已经没有，表示冲突已解决
+
+
+附录一：window命令窗口常用命令
+1.打开命令窗口
+  cmd
+2.进入某个文件夹 
+  cd xxx
+3.清屏
+  clear
+4.显示文件及文件夹 
+  dir
+5.创建文件夹
+  mkdir
+6.创建文件
+  type nul>文件名.后缀名来创建 
+  type null>c.txt
+7.删除文件夹
+  rd d:\wo 
+  当然这种删除方法必须要该文件夹是空文件夹，不然删除不了
+8.删除文件
+  del 盘符名:\文件名
+  del f:\123.txt
+
+附录二：Git跳过使用暂存区域
+尽管使用暂存区域的方式可以精心准备要提交的细节，但有时候这么做略显繁琐。Git 提供了一个跳过使用暂存区域的方式，
+只要在提交的时候，给 git commit 加上 -a 选项，Git 就会自动把所有已经跟踪过的文件暂存起来一并提交，
+从而跳过 git add 步骤：
+
+git commit -am
+
+附录三：Git补充命令
+1.删除远程仓库的关联
+git remote remove <name>
+
+2.修改远程仓库的关联
+比如，之前你关联的远程仓库使用的协议是 http ，你想将关联的远程仓库的 url 改为 ssh 协议的。
+修改关联的远程仓库的方法，主要有三种。
+第一种：使用 git remote set-url 命令，更新远程仓库的 url
+git remote set-url origin <newurl>
+第二种：先删除之前关联的远程仓库，再来添加新的远程仓库关联
+# 删除关联的远程仓库
+git remote remove <name>
+ 
+# 添加新的远程仓库关联
+git remote add <name> <url>
+远程仓库的名称推荐使用默认的名称 origin 。
+第三种：直接修改项目目录下的 .git 目录中的 config 配置文件。
+
+
+
+附录四：如何在github上创建文件夹，两种方式：一种DOC命令/一种网站直接创建
+网站创建文件夹
+1.登陆github个人仓库，点击Create new file
+2.输入文件夹名称后加个“/”
+3.在文件名后面加上"/"这个斜杠回车再输入一个文件名，在里面随便写点东西（因为Github不允许空文件夹存在，空文件夹自动删除），提交接即可。 
+
+附录五：github删除仓库
+1.登录个人账号
+2.点击“your repositories”查看所有的代码仓库
+3.在代码仓库中选择一个需要删除的，进入其详情页
+4.在详情页中找到“setting”设置，下拉至最后可以看到删除选项
+5.在删除时要求输入代码库名称确认删除，完成此过程即可彻底删除代码库
